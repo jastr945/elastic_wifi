@@ -10,7 +10,7 @@ def find_locations():
     """Taking user input, converting into coordinates and searching through the Elasticsearch index to find the closest WiFi spots."""
 
     street = input("Enter your location: ")
-    current_address = street + ", Portland"
+    current_address = (street + ", Portland").upper()
     try:
         coordinates = geolocator.geocode(current_address, timeout=None)
         print("Your coordinates: {}, {}...".format(coordinates.latitude, coordinates.longitude))
@@ -39,7 +39,7 @@ def find_locations():
             }
         }
 
-        res = es.search(index="wifi-index", body=search_body)
+        res = es.search(index="wifi-index", size=100, body=search_body)
 
         print("Got %d Hits:" % res['hits']['total'])
         for hit in res['hits']['hits']:
