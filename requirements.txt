@@ -1,4 +1,6 @@
-elasticsearch==6.3.0
-geopy==1.14.0
+Flask==1.0.2
 requests==2.19.1
 urllib3==1.23
+geopy==1.14.0
+elasticsearch==6.3.0
+zappa==0.46.1

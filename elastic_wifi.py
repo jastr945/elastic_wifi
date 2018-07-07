@@ -41,7 +41,7 @@ def find_locations():
 
         res = es.search(index="wifi-index", size=100, body=search_body)
 
-        print("Got %d Hits:" % res['hits']['total'])
+        print("Got %d Hits within 0.2 miles:" % res['hits']['total'])
         for hit in res['hits']['hits']:
             print(hit["_source"], "\n")
 
