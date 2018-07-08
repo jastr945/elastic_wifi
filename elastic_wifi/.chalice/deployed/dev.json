@@ -1,10 +1,10 @@
 {
   "resources": [
     {
-      "name": "api_handler_role",
+      "name": "default-role",
       "resource_type": "iam_role",
-      "role_arn": "arn:aws:iam::742174490172:role/elastic_wifi-dev-api_handler",
-      "role_name": "elastic_wifi-dev-api_handler"
+      "role_arn": "arn:aws:iam::742174490172:role/elastic_wifi-dev",
+      "role_name": "elastic_wifi-dev"
     },
     {
       "name": "api_handler",

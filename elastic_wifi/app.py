@@ -2,9 +2,11 @@ import boto3
 from chalice import Chalice
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
+from geopy.geocoders import Nominatim
 
 
 app = Chalice(app_name='elastic_wifi')
+
 host = 'search-elastic-wifi2-tj7nwqymkpo4rxoe3mpdvpxjqi.us-west-2.es.amazonaws.com'
 region = 'us-west-2'
 service = 'es'
@@ -19,18 +21,32 @@ es = Elasticsearch(
     connection_class = RequestsHttpConnection
 )
 
-
-document = {
-    "title": "Moneyball",
-    "director": "Bennett Miller",
-    "year": "2011"
-}
-
-es.indices.delete(index='movies', ignore=[400, 404])
+geolocator = Nominatim()
 
 
+@app.route('/')
+def index():
+    street = "110 nw 10th ave"
+    current_address = (street + ", Portland").upper()
+    coordinates = geolocator.geocode(current_address, timeout=None)
 
-# @app.route('/')
-# def index():
-#     resp = es.get(index="movies", doc_type="movie", id="5")
-#     return resp
+    search_body = {
+        "query": {
+            "bool" : {
+                "must" : {
+                    "match_all" : {}
+                },
+                "filter" : {
+                    "geo_distance" : {
+                        "distance" : "0.2mi",
+                        "location" : {
+                            "lat" : coordinates.latitude,
+                            "lon" : coordinates.longitude
+                        }
+                    }
+                }
+            }
+        }
+    }
+    res = es.search(index="wifi-index", size=100, body=search_body)
+    return res
