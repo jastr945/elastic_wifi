@@ -26,6 +26,8 @@ example_address = "110 nw 10th ave"
 
 @app.route('/')
 def index():
+    """Converting the address received from the client into geographic coordinates and performing Geo Distance searches to find free WiFi spots within a certain distance."""
+
     street = example_address
     current_address = (street + ", Portland").upper()
     coordinates = geolocator.geocode(current_address, timeout=None)
@@ -48,5 +50,6 @@ def index():
             }
         }
     }
+
     res = es.search(index="wifi-index", size=100, body=search_body)
     return res
