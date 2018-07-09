@@ -1,6 +1,9 @@
 <div style="text-align:center">
   <h1>Free WiFi spots in Portland:</h1>
 </div>
+<div style="text-align:center">
+Results: {{WiFiList?.length || '0'}}
+</div>
 <ul>
   <li *ngFor="let WiFi of WiFiList">
     {{WiFi.address}}, {{WiFi.coordinates}}
