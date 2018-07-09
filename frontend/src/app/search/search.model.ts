@@ -1,6 +1,6 @@
 export class WiFi {
   constructor(
-    public name: string,
-    public street: string,
+    public address: string,
+    public coordinates: string,
   ) { }
 }

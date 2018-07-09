@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 import {WiFi} from './search.model';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class WiFiApiService {
   // GET list of public, future events
   getWiFi(): Observable<WiFi[]> {
     return this.http.get<WiFi[]>(this._WiFiURL)
-      .do(data => console.log('All: ' + JSON.stringify(data)))
+      .do(res => console.log(res["locations"]))
       .catch(WiFiApiService._handleError);
   }
 }

@@ -1,8 +1,9 @@
 import boto3
-from chalice import Chalice
+from chalice import Chalice, Response
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 from geopy.geocoders import Nominatim
+
 
 app = Chalice(app_name='search_wifi')
 
@@ -52,4 +53,8 @@ def index():
     }
 
     res = es.search(index="wifi-index", size=100, body=search_body)
-    return res
+    locations_list = []
+    for r in res["hits"]["hits"]:
+        location_object = {"address": r["_source"]["address"], "coordinates": r["_source"]["location"]}
+        locations_list.append(location_object)
+    return Response(body={"locations": locations_list}, status_code=200)
