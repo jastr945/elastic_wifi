@@ -24,7 +24,7 @@ geolocator = Nominatim()
 
 example_address = "110 nw 10th ave"
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'], cors=True)
 def index():
     """Converting the address received from the client into geographic coordinates and performing Geo Distance searches to find free WiFi spots within a certain distance."""
 
