@@ -6,6 +6,11 @@ Tools used:
 
 - ```elasticsearch-py```, Python client for Elasticsearch;
 - ```GeoPy```, Python client for for several popular geocoding web services;
+- ```chalice```, for deploying Flask backend on AWS Lambda
+
+## Demo
+
+[work in progress...]
 
 ## Run
 
