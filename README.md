@@ -6,7 +6,9 @@ Tools used:
 
 - ```elasticsearch-py```, Python client for Elasticsearch;
 - ```GeoPy```, Python client for for several popular geocoding web services;
-- ```chalice```, for deploying Flask backend on AWS Lambda
+- ```chalice```, for deploying Flask backend on AWS Lambda;
+- ```boto3```, the Amazon Web Services (AWS) SDK for Python;
+- ```@angular/cli```, for creating a one-page frontend app.
 
 ## Demo
 
