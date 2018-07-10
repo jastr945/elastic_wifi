@@ -11,10 +11,9 @@
     <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">Submit</button>
   </form>
 </div>
-{{ f.value | json }}
 <div class="container results">
   <div style="text-align:center">
-  Results: {{WiFiList?.length || '0'}}
+  Results: {{WiFiList?.length || '0'}} locations
   </div>
   <ul>
     <li *ngFor="let WiFi of WiFiList">

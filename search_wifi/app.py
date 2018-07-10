@@ -1,5 +1,5 @@
 import boto3
-from chalice import Chalice, Response
+from chalice import Chalice, Response, NotFoundError
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 from geopy.geocoders import Nominatim
@@ -23,38 +23,42 @@ es = Elasticsearch(
 
 geolocator = Nominatim()
 
-example_address = "110 nw 10th ave"
 
 @app.route('/', methods=['GET', 'POST'], cors=True)
 def index():
     """Converting the address received from the client into geographic coordinates and performing Geo Distance searches to find free WiFi spots within a certain distance."""
 
-    street = example_address
+    request = app.current_request
+    street = request.json_body["address"]
     current_address = (street + ", Portland").upper()
     coordinates = geolocator.geocode(current_address, timeout=None)
 
-    search_body = {
-        "query": {
-            "bool" : {
-                "must" : {
-                    "match_all" : {}
-                },
-                "filter" : {
-                    "geo_distance" : {
-                        "distance" : "0.2mi",
-                        "location" : {
-                            "lat" : coordinates.latitude,
-                            "lon" : coordinates.longitude
+    if not coordinates:
+        raise NotFoundError("Something went wrong. Please double-check your address or try another location.")
+    else:
+
+        search_body = {
+            "query": {
+                "bool" : {
+                    "must" : {
+                        "match_all" : {}
+                    },
+                    "filter" : {
+                        "geo_distance" : {
+                            "distance" : str(request.json_body["distance"]) + "mi",
+                            "location" : {
+                                "lat" : coordinates.latitude,
+                                "lon" : coordinates.longitude
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    res = es.search(index="wifi-index", size=100, body=search_body)
-    locations_list = []
-    for r in res["hits"]["hits"]:
-        location_object = {"address": r["_source"]["address"], "coordinates": r["_source"]["location"]}
-        locations_list.append(location_object)
-    return Response(body={"locations": locations_list}, status_code=200)
+        res = es.search(index="wifi-index", size=100, body=search_body)
+        locations_list = []
+        for r in res["hits"]["hits"]:
+            location_object = {"address": r["_source"]["address"], "coordinates": r["_source"]["location"]}
+            locations_list.append(location_object)
+        return Response(body={"locations": locations_list}, status_code=200)

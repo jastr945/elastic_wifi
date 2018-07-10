@@ -9,8 +9,8 @@ import {WiFi} from './search.model';
 @Injectable()
 export class WiFiApiService {
 
-  private _WiFiURL = "https://arli63b60f.execute-api.us-west-2.amazonaws.com/api/";
-
+  // private _WiFiURL = "https://arli63b60f.execute-api.us-west-2.amazonaws.com/api/";
+  private _WiFiURL = 'http://127.0.0.1:8001/';
   constructor(private http: HttpClient) {
   }
 
@@ -18,7 +18,7 @@ export class WiFiApiService {
     return Observable.throw(err.message || 'Error: Unable to complete request.');
   }
 
-  // GET list of public, future events
+  // GET list of matching locations
   getWiFi(): Observable<WiFi[]> {
     return this.http.get<WiFi[]>(this._WiFiURL)
       .do(res => console.log(res["locations"]))
