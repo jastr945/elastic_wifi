@@ -2,13 +2,3 @@
   <h1>Free WiFi spots in Portland:</h1>
 </div>
 <app-wi-fi-form></app-wi-fi-form>
-<div class="container results">
-  <div style="text-align:center">
-  Results: {{WiFiList?.length || '0'}}
-  </div>
-  <ul>
-    <li *ngFor="let WiFi of WiFiList">
-      {{WiFi.address}}, {{WiFi.coordinates}}
-    </li>
-  </ul>
-</div>

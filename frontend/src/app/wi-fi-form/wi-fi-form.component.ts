@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { WiFi } from '../search/search.model';
+import {Subscription} from 'rxjs/Subscription';
+import {WiFiApiService} from '../search/search-api.service';
+import { Search } from './search.interface';
 
 @Component({
   selector: 'app-wi-fi-form',
@@ -8,17 +11,21 @@ import { WiFi } from '../search/search.model';
 })
 export class WiFiFormComponent implements OnInit {
 
-  model = new WiFi('110 NW 10th Ave', '2mi');
+  search: Search = {
+    address: '',
+    distance: 0.2
+  };
 
-  submitted = false;
+  WiFiListSubs: Subscription;
+  WiFiList: WiFi[];
 
-  onSubmit() {
-    this.submitted = true;
-    console.log(this);
+  constructor(private WiFiApi: WiFiApiService) {
   }
 
-  // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.model); }
+  onSubmit({ value, valid }: { value: Search, valid: boolean }) {
+    console.log(value, valid);
+  }
+
 
   ngOnInit() {
 
