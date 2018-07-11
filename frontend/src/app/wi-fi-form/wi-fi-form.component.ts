@@ -50,7 +50,7 @@ export class WiFiFormComponent {
       this.Error = null;
     },(err: HttpErrorResponse) => {
       console.log(err);
-      this.Error = err["error"]["Message"];
+      this.Error = err["error"]["Message"].replace("NotFoundError: ", "");;
       this.WiFiList = [];
     });
   }
