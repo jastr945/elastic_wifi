@@ -33,9 +33,11 @@ export class WiFiFormComponent implements OnInit {
     .subscribe(response => {
       console.log(response);
       this.WiFiList = response["locations"];
+      this.Error = "";
     },(err: HttpErrorResponse) => {
       console.log(err);
       this.Error = err["error"]["Message"];
+      this.WiFiList = [];
     });
   }
 
