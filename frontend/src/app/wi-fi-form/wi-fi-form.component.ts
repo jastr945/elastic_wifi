@@ -55,16 +55,14 @@ export class WiFiFormComponent {
     });
   }
 
-
   onMouseOver(infoWindow, gm) {
-
-    if (gm.lastOpen != null) {
-        gm.lastOpen.close();
-    }
-
     gm.lastOpen = infoWindow;
-
     infoWindow.open();
+  }
+
+  onMouseOut(infoWindow, gm) {
+    gm.lastOpen = infoWindow;
+    gm.lastOpen.close();
   }
 
   ngOnInit() {
