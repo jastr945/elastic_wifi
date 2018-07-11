@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Subscription} from 'rxjs/Subscription';
 import {WiFi} from '../search/search.model';
 import {Search} from '../query/query.interface';
-// import {QueryApiService} from '../query/query-api.service';
+import {Error} from './error.model';
 import {WiFiApiService} from '../search/search-api.service';
 
 
@@ -21,6 +21,7 @@ export class WiFiFormComponent implements OnInit {
 
   WiFiListSubs: Subscription;
   WiFiList: WiFi[];
+  Error: Error;
 
   constructor(private WiFiApi: WiFiApiService, private http: HttpClient) {
   }
@@ -33,6 +34,7 @@ export class WiFiFormComponent implements OnInit {
       this.WiFiList = response["locations"];
     },(err: HttpErrorResponse) => {
       console.log(err);
+      this.Error = err["error"]["Message"];
     });
   }
 
