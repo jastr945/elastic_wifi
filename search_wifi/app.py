@@ -61,3 +61,14 @@ def index():
             location_object = {"address": r["_source"]["address"], "coordinates": r["_source"]["location"]}
             locations_list.append(location_object)
         return Response(body={"locations": locations_list}, status_code=200)
+
+
+@app.route('/all', methods=['GET'], cors=True)
+def show_all():
+    """Shows all records in the index"""
+    res = es.search(index="wifi-index", size=100,  body={"query": {"match_all": {}}})
+    locations_list = []
+    for r in res["hits"]["hits"]:
+        location_object = {"address": r["_source"]["address"], "coordinates": r["_source"]["location"]}
+        locations_list.append(location_object)
+    return({"total": res["hits"]["total"], "locations": locations_list})

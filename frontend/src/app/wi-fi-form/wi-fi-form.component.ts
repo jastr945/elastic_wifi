@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {Component, ViewChild} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Subscription} from 'rxjs/Subscription';
+import { GooglePlaceDirective } from '../../../node_modules/ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
+import { ComponentRestrictions } from "../../../node_modules/ngx-google-places-autocomplete/objects/options/componentRestrictions";
 import {WiFi} from '../search/search.model';
 import {Search} from '../query/query.interface';
 import {Error} from './error.model';
-import {WiFiApiService} from '../search/search-api.service';
 
 
 @Component({
@@ -13,7 +12,16 @@ import {WiFiApiService} from '../search/search-api.service';
   templateUrl: './wi-fi-form.component.html',
   styleUrls: ['./wi-fi-form.component.css']
 })
-export class WiFiFormComponent implements OnInit {
+export class WiFiFormComponent {
+  @ViewChild('places') places: GooglePlaceDirective;
+
+  public changeConfig() {
+    this.places.options.componentRestrictions = new ComponentRestrictions({
+      country: "us"
+    });
+
+    this.places.reset();
+  }
 
   lat: number = 45.5122;
   lng: number = -122.6587;
@@ -23,11 +31,10 @@ export class WiFiFormComponent implements OnInit {
     distance: 0.2
   };
 
-  WiFiListSubs: Subscription;
   WiFiList: WiFi[];
   Error: Error;
 
-  constructor(private WiFiApi: WiFiApiService, private http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   onChange(search: Search) {
@@ -36,7 +43,7 @@ export class WiFiFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.search);
-    this.http.post('http://127.0.0.1:8001/', this.search)
+    this.http.post('https://arli63b60f.execute-api.us-west-2.amazonaws.com/api/', this.search)
     .subscribe(response => {
       console.log(response);
       this.WiFiList = response["locations"];
@@ -48,6 +55,17 @@ export class WiFiFormComponent implements OnInit {
     });
   }
 
+
+  onMouseOver(infoWindow, gm) {
+
+    if (gm.lastOpen != null) {
+        gm.lastOpen.close();
+    }
+
+    gm.lastOpen = infoWindow;
+
+    infoWindow.open();
+  }
 
   ngOnInit() {
 
