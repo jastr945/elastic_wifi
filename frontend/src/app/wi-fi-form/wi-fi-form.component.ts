@@ -30,9 +30,13 @@ export class WiFiFormComponent implements OnInit {
   constructor(private WiFiApi: WiFiApiService, private http: HttpClient) {
   }
 
-  onSubmit({ value, valid }: { value: Search, valid: boolean }) {
-    console.log(value, valid);
-    this.http.post('http://127.0.0.1:8001/', value)
+  onChange(search: Search) {
+    this.search.address = search["formatted_address"];
+  }
+
+  onSubmit() {
+    console.log(this.search);
+    this.http.post('http://127.0.0.1:8001/', this.search)
     .subscribe(response => {
       console.log(response);
       this.WiFiList = response["locations"];
