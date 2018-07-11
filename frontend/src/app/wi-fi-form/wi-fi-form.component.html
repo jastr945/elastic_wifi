@@ -1,5 +1,5 @@
 <div class="container form">
-  <form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <form novalidate (ngSubmit)="onSubmit(f); f.reset()" #f="ngForm">
     <div class="form-group">
       <label for="address">Address: </label>
       <input type="text" class="form-control" name="address" ngModel required>
