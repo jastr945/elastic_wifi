@@ -29,8 +29,7 @@ def index():
     """Converting the address received from the client into geographic coordinates and performing Geo Distance searches to find free WiFi spots within a certain distance."""
 
     request = app.current_request
-    street = request.json_body["address"]
-    current_address = (street + ", Portland").upper()
+    current_address = request.json_body["address"]
     coordinates = geolocator.geocode(current_address, timeout=None)
 
     if not coordinates:

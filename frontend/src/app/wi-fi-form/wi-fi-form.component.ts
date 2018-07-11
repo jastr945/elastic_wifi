@@ -15,6 +15,9 @@ import {WiFiApiService} from '../search/search-api.service';
 })
 export class WiFiFormComponent implements OnInit {
 
+  lat: number = 45.5122;
+  lng: number = -122.6587;
+
   search: Search = {
     address: '',
     distance: 0.2
@@ -33,7 +36,7 @@ export class WiFiFormComponent implements OnInit {
     .subscribe(response => {
       console.log(response);
       this.WiFiList = response["locations"];
-      this.Error = "";
+      this.Error = null;
     },(err: HttpErrorResponse) => {
       console.log(err);
       this.Error = err["error"]["Message"];
