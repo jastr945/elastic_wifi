@@ -17,11 +17,11 @@ credentials = boto3.Session().get_credentials()
 awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service)
 
 es = Elasticsearch(
-    hosts = [{'host': host, 'port': 443}],
-    http_auth = awsauth,
-    use_ssl = True,
-    verify_certs = True,
-    connection_class = RequestsHttpConnection
+    hosts=[{'host': host, 'port': 443}],
+    http_auth=awsauth,
+    use_ssl=True,
+    verify_certs=True,
+    connection_class=RequestsHttpConnection
 )
 
 # Creating the mapping with a Geo-Point
@@ -53,7 +53,7 @@ def get_wifi():
     multiple_commas = re.sub("<[^<]+?>", ",", middlecut)
     single_commas = re.sub(r"[,]+", ",", multiple_commas)[1:-1]
     result = single_commas.split(",Been here? ,Add a comment...,")
-    f = open("testfile.txt","w")
+    f = open("testfile.txt", "w")
 
     for r in result:
 
