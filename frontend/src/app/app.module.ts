@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { WiFiApiService } from './search/search-api.service';
 import { WiFiFormComponent } from './wi-fi-form/wi-fi-form.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
     FormsModule,
     GooglePlaceModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDwXSv7Ru8m3iNX6CUDmNVZ_gIBSbJO4GQ'
+      apiKey: environment.key
     }),
   ],
   providers: [WiFiApiService],
