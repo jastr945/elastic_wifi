@@ -2,6 +2,10 @@
   max-width: 500px;
 }
 
+.results {
+  margin: 1em auto;
+}
+
 agm-map {
   height: 55vh;
 }

@@ -26,6 +26,17 @@ export class WiFiFormComponent {
   lat: number = 45.5122;
   lng: number = -122.6587;
 
+  user_lat: number;
+  user_lng: number;
+
+  icon = {
+    url: '../../../assets/google-maps.png',
+    scaledSize: {
+      width: 30,
+      height: 50
+    }
+  };
+
   search: Search = {
     address: '',
     distance: 0.2
@@ -42,10 +53,12 @@ export class WiFiFormComponent {
   }
 
   onSubmit() {
-    console.log(this.search);
+    //console.log(this.search);
     this.http.post('https://arli63b60f.execute-api.us-west-2.amazonaws.com/api/', this.search)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
+      this.user_lat = response["user_location"]["lat"];
+      this.user_lng = response["user_location"]["lng"];
       this.WiFiList = response["locations"];
       this.Error = null;
     },(err: HttpErrorResponse) => {
