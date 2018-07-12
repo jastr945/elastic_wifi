@@ -8,8 +8,9 @@ Tools used:
 - ```GeoPy```, Python client for for several popular geocoding web services;
 - ```chalice```, for deploying Flask backend on AWS Lambda;
 - ```boto3```, the Amazon Web Services (AWS) SDK for Python;
-- ```@angular/cli```, for creating a one-page frontend app.
+- Google Maps API and Google Places API for displaying the map and auto-suggesting the addresses;
+- ```@angular/cli```, for creating a one-page frontend app;
 
 ## Demo
 
-[work in progress...]
+http://wifi.mee.how/
