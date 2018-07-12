@@ -2,8 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { GooglePlaceDirective } from '../../../node_modules/ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 import { ComponentRestrictions } from "../../../node_modules/ngx-google-places-autocomplete/objects/options/componentRestrictions";
-import {WiFi} from '../search/search.model';
-import {Search} from '../query/query.interface';
+import {WiFi} from './wifi.model';
+import {Search} from './search.interface';
 import {Error} from './error.model';
 
 

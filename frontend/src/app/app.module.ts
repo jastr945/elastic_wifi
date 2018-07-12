@@ -5,7 +5,6 @@ import { FormsModule }   from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
-import { WiFiApiService } from './search/search-api.service';
 import { WiFiFormComponent } from './wi-fi-form/wi-fi-form.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { environment } from '../environments/environment';
@@ -24,7 +23,6 @@ import { environment } from '../environments/environment';
       apiKey: environment.key
     }),
   ],
-  providers: [WiFiApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

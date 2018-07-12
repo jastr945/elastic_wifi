@@ -1,7 +1,4 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {WiFiApiService} from './search/search-api.service';
-import {WiFi} from './search/search.model';
 
 @Component({
   selector: 'app-root',
