@@ -11,6 +11,10 @@ geolocator = Nominatim()
 
 class ESTestCase(unittest.TestCase):
 
+    def test_index_view(self):
+        """Checking if the index view accepts requests and searches the index correctly."""
+
+
     def test_es_creation(self):
 
 
@@ -50,7 +54,7 @@ class ESTestCase(unittest.TestCase):
 
         es.index(index="test-index", doc_type="doc", body=doc)
         es.index(index="test-index", doc_type="doc", body=doc2)
-        
+
         search_body = {
             "query": {
                 "bool" : {

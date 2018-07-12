@@ -55,12 +55,13 @@ def index():
             }
         }
 
+        user_location=dict(lat=coordinates.latitude, lng=coordinates.longitude)
         res = es.search(index="wifi-index", size=100, body=search_body)
         locations_list = []
         for r in res["hits"]["hits"]:
             location_object = {"address": r["_source"]["address"], "coordinates": r["_source"]["location"]}
             locations_list.append(location_object)
-        return Response(body={"locations": locations_list}, status_code=200)
+        return Response(body={"user_location": user_location, "locations": locations_list}, status_code=200)
 
 
 @app.route('/all', methods=['GET'], cors=True)
