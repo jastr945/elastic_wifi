@@ -3,6 +3,6 @@ boto==2.48.0
 Flask==1.0.2
 requests==2.19.1
 requests-aws4auth==0.9
-urllib3==1.23
+urllib3==1.26.5
 geopy==1.14.0
 elasticsearch==6.3.0
